@@ -1,0 +1,144 @@
+###############################################
+C# Threading
+###############################################
+
+Background:
+
+Lets take a scenario where we have CPU with single core, if you are running an application which takes long time to finish,
+machine will freeze. To overcome this issue Windows have implemented Windows Scheduler, where each application is allocated fair amount
+of execution time, because windows scheduler does this allocation operation very fast, it might seem to the user that 
+everything is running at the same time or simultaneously.Now we have understood the purpose of windows scheduler, we can try to understand
+multithreading in our application. Let say we have GUI application, each application will have a main thread, which is the starting point
+of execution. The main thread has a long running process, if its executing the GUI will freeze because we have only one thread which is the main
+thread so when scheduler allocates time it will be allocated to long running the process rather if we put the long running process into one thread
+and GUI in another thread, when windows scheduler allocates time it will be allocated seperately to both threads. Scehduler does this in a very
+fast way it will feel both the threads are running simultaneously.
+
+Thread.sleep(0) instructs the cpu, I am done with my execution, now allocate the execution time to another process, but after sometime
+scheduler will again allocate time to our process to continue.
+
+Thread Initialisation:
+
+Thread t = new Thread(new TreadStart(ThreadMethod)); - ThreadStart is a method which accepts a delegate. Delegate are functions which we pass as
+parameter to another method. If the delegate doesn't accept parameters, we pass the delegate name. If it has paremeters we pass the delegate name
+and parameters.
+
+Example of Thread:
+
+
+class program
+{
+
+public void ThreadMethod()
+{
+    for(int i=0, i<=10; i++)
+    {
+       console.writeln("Excecuted thread{0}", i);
+       thread.sleep(0);
+      
+    }
+
+}
+
+public static void main()
+
+    Thread t = new Thread(new ThreadStart(ThreadMethod));
+    t.start();
+    
+    for(int i=0, i<=10; i++)
+    {
+       console.writeln("Main thread Do some work");
+       thread.sleep(0);
+      
+    }
+    
+    t.Join();
+    console.writeln("After");
+}
+
+}
+
+t.join is used for the thread which does work and takes long time to finish to block until its finished, if t.join is not used main thread wont wait
+for the long thread. The execution will continue to next step example write line After will always be executed when the long thread t is finished execution.
+
+Types of threads:
+
+Foreground thread: 
+
+Above code example is a foreground thread, where the execution of main thread will wait for the foreground to complete.
+
+Background thread:
+
+If the main code is finishing execution, it wont wait for the background thread to finish it will just cease the background thread execution.
+
+t.IsBackground = true;
+t.join(); can be used to wait even if its background thread
+
+Parmeterized thread:
+
+To pass parameters to a thread, we need to create a function/method which accepts an object as parameter and the function
+signature should be void. use the initiation below for parameterized thread declaration
+
+Thread t = new thread(new ParameterizedThreadStart(ThreadMethod));
+t.start(parameter);
+
+Pass parameter in the thread start method
+
+Stopping a Thread:
+
+You can use a local variable to stop a thread, Delegate function can use local variable to stop a thread.
+
+you can use global variable and a function, but in the example below I use Lambda function and local variable
+
+class program
+{
+    public static void main(string[] args)
+    {
+      bool stopped = false;
+      Thread t = new Thread(new ThreadStart(()=>{
+                 while(!stopped)
+                 {
+                    console.writeln("Running....");
+                 }
+		 console.writeln("The thread is about to exit");
+                 }));
+      t.start();
+      console.writeln("Press any key to stop execution!");
+      console.readkey()
+      stopped = true;
+      t.join();
+    }
+   
+}
+
+ThreadStatic:
+
+If you want threads to use global variables with its own copy then use thread static in front of variable declaration
+[ThreadStatic]
+public static int _field;
+
+Thread Pool:
+
+When we create a thread and its finishes its execution. Thread gets destroyed. but if we want to recycle the thread
+to retain its resource we can use Thread Pool. Using thread pool we can reuse threads.
+
+parameter s is for state.
+
+ThreadPool.QueueUserWorkItem((s)=>{
+ console.writeln("working on a thread pool");
+}
+);
+
+
+Task:
+
+In threadpool we can't manage it properly meaning we can't identify when the thread has finished or whether thread has produced an output. For that purpose 
+task was created. Task is managed Threadpool thread. when task runs it can have a return value, we can use the return value
+to identify task has completed. whereas in thread pool we need to use  method to stop the thread from completing
+
+Lets say we have a function which reads the contents of a file and returns count of characters in a file. we can pass this 
+function as a delegate parameter to the task class and wait for it to finish execution.
+
+Task<int> t = new Task<int>(function());
+t.start();
+int count= await t;
