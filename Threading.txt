@@ -2,6 +2,8 @@
 C# Threading
 ###############################################
 
+Source: https://www.youtube.com/watch?v=RhLLxew4-TY
+
 Background:
 
 Lets take a scenario where we have CPU with single core, if you are running an application which takes long time to finish,
@@ -142,3 +144,65 @@ function as a delegate parameter to the task class and wait for it to finish exe
 Task<int> t = new Task<int>(function());
 t.start();
 int count= await t;
+
+Using MultiTask:
+
+Task.waitall(taskarray) is used to wait for all task in an array to complete before program closes 
+
+Task tasks = new Task[3];
+tasks[0]= 
+tasks[1]=
+tasks[2]=
+Task.waitAll(tasks);
+
+Task.waitAny:
+
+If you have array of tasks we can find which task has finished using .Task.waitAny.
+
+Task<int>[] tasks = new Task<int>[3];
+tasks[0] = Task.Run(() => {thread.sleep(2000); return 2;});
+tasks[1] = Task.Run(() => {thread.sleep(1000); return 1;});
+tasks[2] = Task.Run(() => {thread.sleep(3000); return 3;});
+
+while(tasks.length>0)
+{
+    int i = Task.waitany(tasks);
+    Task<int> completedtask = tasks[i];
+    console.writeln(completedtask);
+    var temp = tasks.ToList();
+    temp.RemoveAt(i);
+    temp.ToArray();
+}
+
+Parallel Class:
+
+Parallel class have static method called for and for each. Parallel for loop can used to run thread concurrently where as
+in for loop threads are run sequentiall and not concurrently. In parallel for sequence is not in order.
+
+parallel.For(0,10, i=>
+    {
+      console.writeline(i);
+      Thread.Sleep(1000);
+     });
+
+Parallel for each is used to loop through an ienumerable
+
+int[] myArray = {0,1,2,3,4,5,6,7,8,9}
+
+Parallel.ForEach(myArray, (i) =>
+      {
+         console.writeLine(i);
+         Thread.Sleep(1000);
+      }
+
+Async and Await:
+
+Why we use multithreading for two reason
+
+1. exploit the capabilities of doing the things in parallel, take advantage of amount of cores in cpu by running things at same time
+2. keep ui or program responsive
+ 
+To keep UI or progam responsive we can use Async and Await. Async involves using threading but it doesnt mean async is
+multithreaded. Async is pattern where we use threading to make async work. Async and await are used for continuation of
+tasks.
+
