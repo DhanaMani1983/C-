@@ -120,6 +120,7 @@ If you want threads to use global variables with its own copy then use thread st
 public static int _field;
 
 Thread Pool:
+https://owlcation.com/stem/C-ThreadPool-and-its-Task-Queue-Example
 
 When we create a thread and its finishes its execution. Thread gets destroyed. but if we want to recycle the thread
 to retain its resource we can use Thread Pool. Using thread pool we can reuse threads.
