@@ -1,3 +1,9 @@
+############################################
+Parallel Programming with .Net
+############################################
+
+Source: https://blogs.msdn.microsoft.com/pfxteam/2012/02/29/whats-new-for-parallelism-in-net-4-5-beta/
+
 use semaphoresslim to fire asynchronous parallel request to api and process the result 
 
 class SomeChecker
