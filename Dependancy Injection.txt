@@ -3,3 +3,33 @@ Dependancy Injection
 ####################################################
 
 https://www.youtube.com/watch?v=6gNxmz4wrnk
+
+Dependancy Injection: is used to inject dependancies
+
+
+Class ---------------->  Other class - A class can be dependant on another class to function, so this is called dependancy
+
+Model ----------------> Database If we have model which gets data from database we can say model is dependant on database object
+
+Injecting dependencies means pushing the dependancy into the class, where you shouldn't be intiating the dependancy using the new operator from
+inside of the class, instead take it as a constructor parameter or via a setter
+
+
+Why should we inject dependencies?
+
+Suppose we say we program a robot to build house out of wood, it starts making walls but when it comes to building doors, rather to build it every time, 
+we can order from door supplier and fix it. its most flexible way to do it
+
+We inject dependancies becuase we decouple the classes contrution from construction of its dependencies
+
+Dependancy Inversion Principle:
+
+DIP is where code should depend on abstraction/interface, because classes are dependant on abstraction we can change implementation
+
+Problem:
+
+Dependancy injection exposes a problem where each of the classes require all of these dependancies, we have dependany injection container or service locator
+which is actually map of depenencies class1 => array("Dependency1","Dependency2")
+
+
+
