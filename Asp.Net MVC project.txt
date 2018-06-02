@@ -1,0 +1,108 @@
+####################################################
+Asp.Net MVC project using Jquery and Ajax
+####################################################
+
+Source: https://www.youtube.com/watch?v=DI_YppvLgJ8
+
+Create Asp.Net MVC Project:
+
+Open VS and click on Web templates, choose Asp.Net web application and give name of the project, choose the location where you want to save the project 
+Next select MVC and click ok.
+Remove unwanted controllers, models and views
+
+Create Database:
+
+Open SQL Management Studio, Create new Database and then create new table 
+
+Create Model:
+
+Go to Visual studio, click on model and right click select add new item, select data and then ADO.NET Entity Data Model, give it a name
+Click next and then click generate from database. click new connection and then provide connection details, database name and select next and choose tables
+Once the model is created, under models folder, under models name, model class gets created
+
+Create MVC controller:
+
+Right click on controller, Add controller, Select MVC5 controller - Empty, give it a name and action result with view gets created
+To make controller as default, go to App_start and then RouteConfig, change the defaults controller name
+
+To create index view for the controller, right click of the controller and add view, leave the view name as it is, choose empty template and check layout to create index view
+
+Hold the controller and choose f5 to run the application
+
+To change shared view go to _Layout.chtml and change menu items or other share tag elements
+
+Implement BootStrap Tab Controller:
+
+Remove the h2 element, change it into bootstrap tab controller, use ul element and code below
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#firsttab">View All</a></li>
+    <li><a data-toggle="tab" href="#secondtab">Add New</a></li>
+</ul>
+<div class="tab-content">
+    <div id="firsttab" class="tab-pane fade in active">tab 1 content</div>
+    <div id="secondtab" class="tab-pane fade in">tab 2 content</div>
+</div>
+
+To change styles to _Layout.cshtml, go to content folder and open Site.css which has default css, In layout.cshtml styles are included as renders, in app start,
+under bundle config.cs, you can see site.css is included
+
+Implement View All:
+
+To implement view all, open employee controller add action result viewall, where in the view return all employees
+
+To return all employees create an ienumerable funtion which returns all employees.
+
+To create a view right click the view and select add view. choose appropriate name and template as list, select model as appropriate model and select add
+if you do not need layout view set layout as null, to show a view inside another view go to the parent view and set appropriate view
+for that use razor method @Html.render(view name)
+
+Implement Insert Method:
+
+To add or edit records create two methods of same signature, one as get and one as post. To add profile picture or files we need to use property HttpPostedFileBase
+If you dont have the column in table we need mark the propery notmapped attribute. to upload files/pictures to a folder add a folder
+
+To add folder, right click project add folder, To add default path for the image, add constructor in the model and set the image path
+Go to the controller create an employee oobject and pass the object to the view
+To create view, add view and select template as edit. Once the view is created set the layout as null
+Add the view to the relavent tab
+
+To split the form into two equal part use bootstrap
+use div class row
+
+Add Script File for JQuery CRUD operation:
+
+To add script file, click script folder and add script file with js extension, To link the script file to Layout.cshtml, open the file and drag and drop the script file to include the file
+
+
+To show preview of selected image use the function below
+
+function ShowImagePreview(imageUploader, previewImage) {
+    if (imageUploader.files && imageUploader.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(previewImage).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(imageUploader.files[0]);
+    }
+}
+
+Pass the imageuploader control and image control as parameter, read the image and if there is a image set the src to image control.
+To change the display name of the property use DisplayName[""] as attribute before property name
+
+Add Client-Side Validation:
+
+To make model property or table column as mandatory, [Required], To enable the client side validation we need to add Jquery script validation bundle in bundle.config
+To include jquery script, go to the view where you want to implement valdation, extend the script section from layout
+To check version of MVC go to references, right click system.web.mvc and select properties
+Add bootstrap form control classes
+To update mvc controller to latest version, refer video at time 34.15
+
+In the form where we are going to submit, inside the form add the post action method where specify the actionmethod, controllername, form action method post
+set the encryption type to multi form data if you want to updload files or have multiparts in the form
+Add jquery/javascript submit method, as a parameter pass the object of the form.
+
+
+
+
+
