@@ -1,0 +1,55 @@
+##################################
+MVC Web API CRUD Demo
+#################################
+
+1. Create Web Api Project
+
+Open visual studio, click web -> ASP.NET Web Application, Give name and location -> Select Web API project 
+Create another project MVC, click new project -> ASP.NET Web Application ->  Give name -> Select MVC and click ok
+
+In real world application web api's can be consumed by windows app, mobile app, web apps and consumed as a service
+
+2. Create Database objects
+
+Create necessary database objects needed for the web api
+
+3.Create EF model:
+
+Go to VS web abi project, click on model and select add new item, select data and then ADO.NET entity data model, give model a name and then EF designer from database
+Click next provide connection, select the DB objects to include and click finish. If there is error add reference to System.Data.Entity
+
+4. Add controller for the model
+
+Click on controller, Add new controller, Select MVC 5 controller with views, using Entity Framework
+Select Model class, Data context class and Controller name and select ok
+
+It will create the controller with Get, Put(update), Post(Insert), Delete methods
+
+Model state validation can be done from mvc so remove it from web api
+
+To test the project, set the web api project as start up project. To look at the web api address look at WebApiConfig.cs
+
+Type the localhost/api/controllername to retrieve the list of employees
+
+5. Switch to MVC project, Add controller with type as MVC 5 Controller - Empty, Name the controller
+
+click a model for employee, reason being web api or db projects can be in differenct locations so it is recommended to create models rather than add reference
+
+Add model class by right clicking model, add model name model as mvcEmployeeModel
+
+Create view using MVC scaffolding, right click on the view, keep the view name the same and select template as list and model as employee model and click ok
+
+
+In order to consume http methods from web api project, you need to install web api clients inside mvc project, so right click on project manage Nuget packages
+search for web api client, install web api 2 client library 
+
+In .net projects to call http methods within web api projects, we need to create http client object, you shouldn't be creating http client object for each method call
+so intantite once and reuse for lifr cycle of application. If you intantiate http client object for each method call. we will run out of sockets
+
+Create a static class  with static http client object 
+
+
+
+
+
+
