@@ -1,0 +1,27 @@
+###################################
+Media type formatters
+###################################
+
+Source : https://www.youtube.com/watch?v=N_-VaoFoP6E
+Create custom media type formatter 
+
+When a resquest for a resource is made we sent the accept header with format such as application/xml, where when the 
+resource comes back it s converted to the appropirate media type format. This is called content negotiation
+
+There are two types of media type formatters available which are xml and json. we can extend to accept csv, xls, png, jpg etc
+
+By default when you call a web api from IE and chrome, chrome returns response in xml and ie returns response in json
+because chrome default accept header is xml and IE is json
+
+How to Return only JSON from ASP.NET Web Api Service:
+
+Go to Webapiconfig.cs 
+
+config.formatter.remove(config.formatter.xmlformatter);
+
+for how to set default media type formatter, go to video
+
+https://www.youtube.com/watch?v=tNzgXjqqIjI
+
+
+
