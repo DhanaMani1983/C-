@@ -5,6 +5,8 @@ C# Threading
 Source: https://www.youtube.com/watch?v=RhLLxew4-TY
 Source: http://www.dotnetforall.com/difference-task-and-thread/
 
+Use Threads for CPU bound example network access or disk access, use task for IO bound example Read from file etc
+
 Background:
 
 Lets take a scenario where we have CPU with single core, if you are running an application which takes long time to finish,
