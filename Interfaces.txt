@@ -1,0 +1,128 @@
+###########################################################
+C# - Interfaces
+###########################################################
+
+Source: https://dzone.com/articles/c-interfaces-what-are-they-and
+
+What Is an Interface?
+First and foremost, interfaces in C# are a means to get around the lack of multiple inheritances in C#, 
+meaning you cannot inherit from multiple classes but you can implement multiple interfaces. 
+OOP tries to resemble how objects are defined in the real life, and interfaces are a very logical way of grouping objects in terms of behavior.
+
+An interface is a contract between itself and any class that implements it. 
+This contract states that any class that implements the interface will implement the interface's properties, methods and/or events. 
+An interface contains no implementation, only the signatures of the functionality the interface provides. 
+An interface can contain signatures of methods, properties, indexers, and events.
+
+You can think of an interface as an abstract class with the implementation stripped out. 
+An interface doesn't actually do anything, like a class or abstract class, it merely defines what a class that implements it will do. 
+An interface can also inherit/implement other interfaces.
+
+Why Use Interfaces?
+So if an interface implements no functionality then why should we use them?
+Using interface-based design concept provides loose coupling, component-based programming, easier maintainability, 
+makes your code base more scalable and makes code reuse much more accessible because the implementation is separated from the interface. 
+Interfaces add a plug and play like architecture into your applications. 
+Interfaces help define a contract (agreement or blueprint, however you chose to define it), between your application and other objects. 
+This indicates what sort of methods, properties, and events are exposed by an object.
+
+For example, let's take a vehicle. All vehicles have similar items but are different enough that we could design an interface
+that holds all the common items of a vehicle. Some vehicles have 2 wheels, some have 4 wheels and can even have 1 wheel, 
+though these are differences they have something in common, they're all movable, they all have some sort of engine, 
+they all have doors, but each of these items may vary. So we can create an interface of a vehicle that has these properties, 
+then we inherit from that interface to implement it.
+
+While wheels, doors, and engines are different they all rely on the same interface (I sure hope this is making sense). 
+Interfaces allow us to create nice layouts for what a class is going to implement. Because of the guarantee the interface gives us, 
+when many components use the same interface it allows us to easily interchange one component for another which is using the same interface. 
+Dynamic programs begin to form easily from this. An interface is a contract that defines the signature of some piece of functionality.
+
+So here's a simple example of an interface and implementing it. From the above example, we're created an IVehicle interface that looks like this
+
+namespace InterfaceExample {
+ public interface IVehicle {
+  int Doors {
+   get;
+   set;
+  }
+  int Wheels {
+   get;
+   set;
+  }
+  Color VehicleColor {
+   get;
+   set;
+  }
+  int TopSpeed {
+   get;
+   set;
+  }
+  int Cylinders {
+   get;
+   set;
+  }
+  int CurrentSpeed {
+   get;
+  }
+  string DisplayTopSpeed();
+  void Accelerate(int step);
+ }
+}
+
+Now we have our vehicle blueprint, and all classes that implement it must implement the items in our interface, 
+whether it be a motorcycle, car, or truck class we know that all will contain the same functionality. 
+Now for a sample implementation, in this example, we'll create a motorcycle class that implements our IVehicle class. 
+This class will contain everything we have defined in our interface
+
+namespace InterfaceExample {
+ public class Motorcycle: IVehicle {
+  private int _currentSpeed = 0;
+  public int Doors {
+   get;
+   set;
+  }
+  public int Wheels {
+   get;
+   set;
+  }
+  public Color VehicleColor {
+   get;
+   set;
+  }
+  public int TopSpeed {
+   get;
+   set;
+  }
+  public int HorsePower {
+   get;
+   set;
+  }
+  public int Cylinders {
+   get;
+   set;
+  }
+  public int CurrentSpeed {
+   get {
+    return _currentSpeed;
+   }
+  }
+  public Motorcycle(int doors, int wheels, Color color, int topSpeed, int horsePower, int cylinders, int currentSpeed) {
+   this.Doors = doors;
+   this.Wheels = wheels;
+   this.VehicleColor = color;
+   this.TopSpeed = topSpeed;
+   this.HorsePower = horsePower;
+   this.Cylinders = cylinders;
+   this._currentSpeed = currentSpeed;
+  }
+  public string DisplayTopSpeed() {
+   return "Top speed is: " + this.TopSpeed;
+  }
+  public void Accelerate(int step) {
+   this._currentSpeed += step;
+  }
+ }
+Now, in the same application, we could interchange our Motorcycle class with a Truck class or a Car class 
+and they will all have the same base functionality, that of a vehicle.
+
+So as you can see interface-based development can make a developer's life much easier, and our applications much cleaner, maintainable and extensible.
