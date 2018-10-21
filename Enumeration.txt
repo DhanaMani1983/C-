@@ -1,0 +1,27 @@
+####################################################
+C# Enumeration
+####################################################
+
+source: http://www.tutorialsteacher.com/csharp/csharp-enum
+
+In C#, enum is a value type data type. The enum is used to declare a list of named integer constants. 
+It can be defined using the enum keyword directly inside a namespace, class, or structure. 
+The enum is used to give a name to each constant so that the constant integer can be referred using its name.
+
+enum WeekDays
+{
+    Monday = 0,
+    Tuesday =1,
+    Wednesday = 2,
+    Thursday = 3,
+    Friday = 4,
+    Saturday =5,
+    Sunday = 6
+}
+
+Console.WriteLine(WeekDays.Friday);
+Console.WriteLine((int)WeekDays.Friday);
+
+Friday 
+4
+
